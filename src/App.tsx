@@ -4,26 +4,35 @@ import { Home } from './Home';
 import { About } from './About';
 import { Link } from './Link';
 
+const links = [
+  { path: '/app/dashboard/home', title: 'Home' },
+  { path: '/app/dashboard/about', title: 'About' },
+];
+
 const routes = [
-  { component: Home, path: '/home', title: 'Home' },
-  { component: About, path: '/about', title: 'About' },
+  { path: '/home', Component: Home },
+  { path: '/about', Component: About },
 ];
 
 export const App: FC = () => {
   return (
     <>
       <ul>
-        {routes.map((route, index) => (
+        {links.map(({ path, title }, index) => (
           <li key={index}>
-            <Link href={route.path}>{route.title}</Link>
+            <Link href={path}>{title}</Link>
           </li>
         ))}
       </ul>
-      {routes.map((route, index) => (
-        <Route key={index} path={route.path}>
-          <route.component />
+      <Route path="/app">
+        <Route path="/dashboard">
+          {routes.map(({ path, Component }, index) => (
+            <Route key={index} path={path}>
+              <Component />
+            </Route>
+          ))}
         </Route>
-      ))}
+      </Route>
     </>
   );
 };

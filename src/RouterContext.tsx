@@ -1,15 +1,15 @@
 import { createContext, useContext } from 'react';
 
-type TRouterContext = {
+type TContextValue = {
   pathname: string;
   navigate: (url: string) => void;
 };
 
-const initialValues: TRouterContext = {
+const initialValue: TContextValue = {
   pathname: location.pathname,
   navigate: () => {},
 };
 
-export const RouterContext = createContext<TRouterContext>(initialValues);
+export const RouterContext = createContext(initialValue);
 
 export const useRouterContext = () => useContext(RouterContext);
